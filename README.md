@@ -24,12 +24,12 @@ Create `config/local.js` similar to:
         password: 'bar',
         database: 'baz'
       },
-
       tresdb_db: {
         host: 'localhost',
         port: 27017,
         user: 'foo',
-        password: 'bar'
+        password: 'bar',
+        database: 'baz'
       }
     };
 
@@ -56,6 +56,7 @@ Once the tunnel is open, the remote database can be accessed on localhost:1337.
 ## Technologies
 
 - [node-mysql](https://github.com/mysqljs/mysql)
+- [node-mongodb-native](https://github.com/mongodb/node-mongodb-native)
 - [jsonfile](https://www.npmjs.com/package/jsonfile)
 
 ## License
