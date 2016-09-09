@@ -5,11 +5,16 @@ var jsonfile = require('jsonfile');
 
 // Setup connection
 
-var connection = mysql.createConnection({
-  host: local
-});
+var connection = mysql.createConnection(local.locator_db);
 
-connection.connect();
+connection.connect(function (err) {
+  if (err) {
+    console.error('error connecting: ' + err.stack);
+    return;
+  }
+
+  console.log('connected as id ' + connection.threadId);
+});
 
 // Aggregate. Store here the converted data from Locator.
 
@@ -20,9 +25,9 @@ var result = {};
 var loc2location = function (row) {
   return {
     _id: row.loc_id,
-    name: loc_name,
-    lat: loc_lat,
-    lng: loc_lon
+    name: row.loc_name,
+    lat: row.loc_lat,
+    lng: row.loc_lon
   }
 };
 
@@ -31,14 +36,15 @@ connection.query(sql, function (err, rows, fields) {
   if (err) throw err;
 
   result.locations = _.map(rows, loc2location);
+
+  // Store result as JSON
+
+  jsonfile.writeFile('./data/dump.json', result, {spaces: 2}, function (err) {
+    if (err) throw err;
+    console.log('Locator successfully dumped to data/dump.json');
+  });
 });
 
-// Store result as JSON
-
-jsonfile.writeFile('./data/dump.json', result, {spaces: 2}, function (err) {
-  if (err) throw err;
-  console.log('Locator successfully dumped to data/dump.json');
-});
 
 // Close connection
 

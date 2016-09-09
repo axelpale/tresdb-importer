@@ -23,6 +23,15 @@ config/local.js
 
 
 
+################################################
+# Data
+#
+# You do not want these to end up into the
+# repository
+################################################
+data/dump.json
+
+
 
 ################################################
 # Dependencies

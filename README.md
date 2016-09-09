@@ -17,16 +17,19 @@ Install dependencies:
 Create `config/local.js` similar to:
 
     module.exports = {
-      locator: {
-        db_admin_name: 'foo',
-        db_admin_password: 'bar',
-        db_url: 'http://localhost:3306'
+      locator_db: {
+        host: 'localhost',
+        port: 3306,
+        user: 'foo',
+        password: 'bar',
+        database: 'baz'
       },
 
-      tresdb: {
-        db_admin_name: 'baz',
-        db_admin_password: 'biz',
-        db_url: 'http://localhost:27017'
+      tresdb_db: {
+        host: 'localhost',
+        port: 27017,
+        user: 'foo',
+        password: 'bar'
       }
     };
 
@@ -41,6 +44,14 @@ Import JSON under `data/` to TresDB's MongoDB:
 
     $ node import.js
 
+
+## Tips
+
+To export from and import to a remote database, an SSH tunnel can be helpful. Due to security reasons, often databases are accessible only locally, making direct remote access impossible. By opening a tunnel between local and remote machine, this restriction can be bypassed. The following opens a tunnel between a local port 1337 and the local port 3306 of the remote server:
+
+    $ ssh -L 1337:localhost:3306 username@remote.com
+
+Once the tunnel is open, the remote database can be accessed on localhost:1337.
 
 ## Technologies
 
