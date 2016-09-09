@@ -2,6 +2,7 @@
 
 Import data from Xitrux Locator to TresDB.
 
+
 ## Install
 
 Clone the repository:
@@ -40,6 +41,11 @@ Import JSON under `data/` to TresDB's MongoDB:
 
     $ node import.js
 
+
+## Technologies
+
+- [node-mysql](https://github.com/mysqljs/mysql)
+- [jsonfile](https://www.npmjs.com/package/jsonfile)
 
 ## License
 
