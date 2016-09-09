@@ -1,0 +1,22 @@
+{
+  "name": "tresdb-importer",
+  "version": "1.0.0",
+  "description": "Import from Xitrux Locator to TresDB",
+  "main": "index.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1"
+  },
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/axelpale/tresdb-importer.git"
+  },
+  "keywords": [
+    "TresDB"
+  ],
+  "author": "Akseli Palen <akseli.palen@gmail.com>",
+  "license": "MIT",
+  "bugs": {
+    "url": "https://github.com/axelpale/tresdb-importer/issues"
+  },
+  "homepage": "https://github.com/axelpale/tresdb-importer#readme"
+}
