@@ -4,10 +4,12 @@ var _ = require('lodash');
 var local = require('./config/local');
 
 var mongoUrl = function (config) {
+  var u = config.user;
+  var pwd = config.password;
   var h = config.host;
   var p = config.port;
   var d = config.database;
-  return 'mongodb://' + h + ':' + p + '/' + d;
+  return 'mongodb://' + u + ':' + pwd + '@' + h + ':' + p + '/' + d;
 };
 
 var url = mongoUrl(local.tresdb_db);
