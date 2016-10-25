@@ -1,51 +1,43 @@
 var mysql = require('mysql');
 var local = require('./config/local');
-var _ = require('lodash');
 var jsonfile = require('jsonfile');
+var lib = require('./lib');
 
 // Setup connection
 
 var connection = mysql.createConnection(local.locator_db);
 
+var exit = function (err) {
+  if (err) {
+    console.error(err);
+  }
+
+  return connection.end();
+};
+
 connection.connect(function (err) {
   if (err) {
-    console.error('error connecting: ' + err.stack);
-    return;
+    return exit(err);
   }
 
   console.log('connected as id ' + connection.threadId);
-});
 
-// Aggregate. Store here the converted data from Locator.
+  lib.v3.export(connection, function (err2, result) {
+    if (err2) {
+      return exit(err2);
+    }
 
-var result = {};
+    var opts = { spaces: 2 };
 
-// Fetch locations
+    jsonfile.writeFile('./data/dump.json', result, opts, function (err3) {
+      if (err3) {
+        return exit(err3);
+      }
+      console.log('Locator successfully dumped to data/dump.json');
 
-var loc2location = function (row) {
-  return {
-    _id: row.loc_id,
-    name: row.loc_name,
-    lat: row.loc_lat,
-    lng: row.loc_lon
-  }
-};
+      return exit();
+    });
 
-var sql = 'SELECT * FROM locs';
-connection.query(sql, function (err, rows, fields) {
-  if (err) throw err;
-
-  result.locations = _.map(rows, loc2location);
-
-  // Store result as JSON
-
-  jsonfile.writeFile('./data/dump.json', result, {spaces: 2}, function (err) {
-    if (err) throw err;
-    console.log('Locator successfully dumped to data/dump.json');
   });
+
 });
-
-
-// Close connection
-
-connection.end();
