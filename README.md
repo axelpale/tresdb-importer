@@ -53,6 +53,22 @@ To export from and import to a remote database, an SSH tunnel can be helpful. Du
 
 Once the tunnel is open, the remote database can be accessed on localhost:1337.
 
+## Importing user uploads
+
+First export uploaded files from the Locator instance. Fetching uploaded files is easily done with scp. For example if you host Locator on Webfaction's platform, you could do:
+
+    $ scp -r myname.webfactional.com:~/webapps/locator/uploads ./data
+
+As a result, the uploaded files are now available in `/data/uploads`.
+
+Then run a transform script `uploads.js`. The script reads `data/dump.json` and `data/uploads/uploadlog.txt` and creates a TresDB compatible upload directory `/data/tresdb-uploads` with the files in it.
+
+    $ node uploads.js
+
+Finally, send the `tresdb-uploads` dir to your TresDB server with scp:
+
+    $ scp -r ./data/tresdb-uploads/* example.com:/path/to/tresdb/.data/uploads
+
 ## Technologies
 
 - [node-mysql](https://github.com/mysqljs/mysql)
