@@ -73,7 +73,7 @@ module.exports = {
     // disallow function declarations and expressions inside loop statements
     'no-loop-func': 'error',
     // disallow magic numbers
-    'no-magic-numbers': ['error', { ignore: [0, 1, 2 ] } ],
+    'no-magic-numbers': ['error', { ignore: [0, 1, 2] }],
     // disallow multiple spaces
     'no-multi-spaces': 'error',
     // disallow multiline strings
@@ -215,7 +215,7 @@ module.exports = {
     // require or disallow an empty line after variable declarations
     'newline-after-var': 'error',
     // require an empty line before return statements
-    'newline-before-return': 'error',
+    'newline-before-return': 'off',
     // require a newline after each call in a method chain
     'newline-per-chained-call': ['error', { 'ignoreChainWithDepth': 3 } ],
     // disallow Array constructors
