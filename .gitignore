@@ -30,6 +30,8 @@ config/local.js
 # repository
 ################################################
 data/dump.json
+data/uploads
+data/tresdb-uploads
 
 
 
